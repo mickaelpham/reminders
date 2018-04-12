@@ -2,18 +2,19 @@ import React from 'react'
 import './todo_item.css'
 
 const TodoItem = (props) => {
-  const classNames = ['todo-item']
-
-  if (props.todo.done) {
-    classNames.push('todo-item-done')
-  }
-
   return (
-    <li
-      onClick={props.onClick}
-      className={classNames.join(' ')}
-    >
-      {props.todo.title}
+    <li className="todo-item">
+      <input
+        type="checkbox"
+        checked={props.todo.done}
+        onChange={props.onChange}
+      />
+
+      &nbsp;
+
+      <span className={props.todo.done ? 'todo-item-done' : ''}>
+        {props.todo.title}
+      </span>
     </li>
   )
 }

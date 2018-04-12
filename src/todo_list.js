@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import TodoItem from './todo_item'
+import './todo_list.css'
 
 const TODOS = [
   { title: 'Learn React',         done: true },
@@ -17,15 +18,15 @@ class TodoList extends Component {
     }
   }
 
-  toggle(todo) {
-    const todos = this.state.todos.slice()
+  toggle(todoIndex) {
+    const todos           = this.state.todos.slice()
+    todos[todoIndex].done = !todos[todoIndex].done
+    this.setState({ todos })
+  }
 
-    todos.forEach((current) => {
-      if (current === todo) {
-        current.done = !current.done
-      }
-    })
-
+  update(todoIndex, newTitle) {
+    const todos            = this.state.todos.slice()
+    todos[todoIndex].title = newTitle
     this.setState({ todos })
   }
 
@@ -49,12 +50,13 @@ class TodoList extends Component {
   }
 
   renderTodoItems() {
-    return this.state.todos.map((todo) => {
+    return this.state.todos.map((todo, index) => {
       return (
         <TodoItem
-          key={todo.title}
+          key={index}
           todo={todo}
-          onClick={() => this.toggle(todo)}
+          onChange={() => this.toggle(index)}
+          onUpdate={title => this.update(index, title)}
         />
       )
     })
@@ -72,8 +74,8 @@ class TodoList extends Component {
           <input
             type="text"
             value={this.state.newTodoTitle}
-            onKeyPress={(e) => this.addTodo(e)}
-            onChange={(e) => this.setState({ newTodoTitle: e.target.value})}
+            onKeyPress={e => this.addTodo(e)}
+            onChange={e => this.setState({ newTodoTitle: e.target.value})}
           />
         </div>
 

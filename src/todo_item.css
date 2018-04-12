@@ -1,5 +1,5 @@
 .todo-item {
-  cursor: pointer;
+  line-height: 1.5;
 }
 
 .todo-item-done {
