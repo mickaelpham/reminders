@@ -49,24 +49,22 @@ class TodoList extends Component {
     })
   }
 
-  renderTodoItems() {
-    return this.state.todos.map((todo, index) => {
-      return (
-        <TodoItem
-          key={index}
-          todo={todo}
-          onChange={() => this.toggle(index)}
-          onUpdate={title => this.update(index, title)}
-        />
-      )
-    })
+  renderTodoItem(todo, index) {
+    return (
+      <TodoItem
+        key={index}
+        todo={todo}
+        onChange={() => this.toggle(index)}
+        onUpdate={title => this.update(index, title)}
+      />
+    )
   }
 
   render() {
     return (
       <div>
         <ul className="todo-list">
-          {this.renderTodoItems()}
+          {this.state.todos.map(this.renderTodoItem)}
         </ul>
 
         <div>
